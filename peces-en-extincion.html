@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marea baja · Peces en peligro de extinción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef6f5;--bg2:#cfe6e4;--ink:#08242e;--mute:#3f5f69;--line:rgba(8,36,46,.18);
+  --glow:#00798c;--cr:#c4321f;--en:#b86a00;--card:rgba(255,255,255,.55);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b3a47;--bg2:#030f16;--ink:#e6f6f4;--mute:#9bbcc2;--line:rgba(230,246,244,.16);
+  --glow:#5ce1e6;--cr:#ff7a66;--en:#ffc04d;--card:rgba(255,255,255,.05);}}
+:root[data-theme="dark"]{--bg:#0b3a47;--bg2:#030f16;--ink:#e6f6f4;--mute:#9bbcc2;--line:rgba(230,246,244,.16);--glow:#5ce1e6;--cr:#ff7a66;--en:#ffc04d;--card:rgba(255,255,255,.05)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:400 17px/1.6 "Instrument Sans",system-ui,sans-serif;background:var(--bg2);background-image:linear-gradient(var(--bg),var(--bg2) 85%);background-attachment:scroll}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.02;margin:0}
+a{color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.logo{font:800 20px "Bricolage Grotesque",sans-serif;text-decoration:none}
+.top a.cta{font-weight:500;font-size:15px;text-decoration:none;border:1px solid var(--line);padding:8px 16px;border-radius:99px}
+.top a.cta:hover{border-color:var(--glow);color:var(--glow)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:56px 0 88px}
+.hero h1{font-size:clamp(44px,8vw,92px);font-weight:800;letter-spacing:-.035em}
+.hero p{max-width:46ch;color:var(--mute);font-size:19px;margin:24px 0 32px}
+.btn{display:inline-block;background:var(--glow);color:var(--bg2);font-weight:500;padding:14px 26px;border-radius:99px;text-decoration:none}
+:root:not([data-theme]) .btn{color:#fff}
+@media (prefers-color-scheme:dark){.btn{color:#03222b!important}}
+.btn:hover{filter:brightness(1.1)}
+.btn:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
+.fish{width:100%;height:auto;color:var(--glow);animation:drift 7s ease-in-out infinite}
+@keyframes drift{50%{transform:translate(-10px,8px) rotate(-1.5deg)}}
+.stats{display:flex;flex-wrap:wrap;gap:12px 40px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;margin-bottom:96px}
+.stats b{font:800 34px "Bricolage Grotesque",sans-serif;display:block;line-height:1}
+.stats span{color:var(--mute);font-size:15px}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}
+.head h2{font-size:clamp(32px,5vw,52px);font-weight:700;letter-spacing:-.025em}
+.filters{display:flex;gap:8px}
+.filters button{font:500 15px "Instrument Sans",sans-serif;color:var(--ink);background:none;border:1px solid var(--line);padding:8px 16px;border-radius:99px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg2);border-color:var(--ink)}
+ul.list{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.7fr) auto;gap:8px 32px;align-items:start;padding:30px 0;border-top:1px solid var(--line)}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row[hidden]{display:none}
+.row h3{font-size:28px;font-weight:700;letter-spacing:-.015em}
+.row em{display:block;color:var(--mute);font-size:15px;margin-top:6px}
+.row p{margin:0;color:var(--mute)}
+.row p strong{color:var(--ink);font-weight:500}
+.tag{font-weight:500;font-size:14px;padding:5px 12px;border-radius:99px;border:1.5px solid;white-space:nowrap}
+.tag.cr{color:var(--cr)}.tag.en{color:var(--en)}
+.depth{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:5;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;padding:8px 14px;font-size:14px;color:var(--mute)}
+.depth b{color:var(--ink);font:700 18px "Bricolage Grotesque",sans-serif}
+.act{margin:112px 0 40px;padding:56px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:32px 56px}
+.act h2{font-size:clamp(32px,5vw,48px);font-weight:700;letter-spacing:-.025em}
+.act ul{margin:0;padding-left:20px;color:var(--mute)}
+.act li{margin-bottom:12px}.act li strong{color:var(--ink);font-weight:500}
+footer{padding:24px 0 72px;color:var(--mute);font-size:14px}
+@media (max-width:760px){.hero,.act{grid-template-columns:1fr}.hero{padding-top:24px}.fish{max-width:340px}.row{grid-template-columns:1fr}.row .tag{justify-self:start;order:-1}}
+@media (prefers-reduced-motion:reduce){.fish{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#">Marea baja</a>
+    <a class="cta" href="#actuar">Cómo ayudar</a>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Los océanos se están quedando en silencio.</h1>
+      <p>Sobrepesca, pérdida de hábitat y comercio ilegal empujan a decenas de especies al borde. Estas son ocho de las más amenazadas del mundo.</p>
+      <a class="btn" href="#especies">Conocer las especies</a>
+    </div>
+    <svg class="fish" viewBox="0 0 400 240" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M30 120c50-70 150-90 230-40l90-40c-12 35-12 65 0 100l-90-40c-80 50-180 30-230-20z" fill="currentColor" fill-opacity=".14"/>
+      <path d="M130 62c18 20 18 96 0 116M170 56c14 24 14 104 0 128M210 58c10 22 10 102 0 124" opacity=".55"/>
+      <circle cx="82" cy="108" r="7" fill="currentColor"/>
+      <path d="M60 126c10 6 22 8 34 6" opacity=".7"/>
+    </svg>
+  </section>
+
+  <div class="stats">
+    <div><b>8</b><span>especies en esta lista</span></div>
+    <div><b>5</b><span>en peligro crítico</span></div>
+    <div><b>3</b><span>en peligro</span></div>
+    <div><b>UICN</b><span>fuente de la clasificación</span></div>
+  </div>
+
+  <section id="especies">
+    <div class="head">
+      <h2>Especies en riesgo</h2>
+      <div class="filters" role="group" aria-label="Filtrar por estado">
+        <button data-f="all" aria-pressed="true">Todas</button>
+        <button data-f="cr" aria-pressed="false">Peligro crítico</button>
+        <button data-f="en" aria-pressed="false">En peligro</button>
+      </div>
+    </div>
+    <ul class="list">
+      <li class="row" data-s="cr"><div><h3>Esturión beluga</h3><em>Huso huso</em></div><p><strong>Mar Caspio y mar Negro.</strong> Su caviar es de los más caros del mundo. La pesca ilegal y las presas que bloquean sus ríos de desove casi lo han eliminado de su rango.</p><span class="tag cr">Peligro crítico</span></li>
+      <li class="row" data-s="cr"><div><h3>Anguila europea</h3><em>Anguilla anguilla</em></div><p><strong>Atlántico y ríos de Europa.</strong> Migra miles de kilómetros hasta el mar de los Sargazos. Su población ha caído más de un 90 % por barreras fluviales, contaminación y tráfico de angulas.</p><span class="tag cr">Peligro crítico</span></li>
+      <li class="row" data-s="cr"><div><h3>Pez sierra común</h3><em>Pristis pristis</em></div><p><strong>Estuarios y costas tropicales.</strong> Su largo rostro dentado se enreda en las redes. Ya ha desaparecido de gran parte de las aguas donde vivía.</p><span class="tag cr">Peligro crítico</span></li>
+      <li class="row" data-s="cr"><div><h3>Totoaba</h3><em>Totoaba macdonaldi</em></div><p><strong>Golfo de California.</strong> Se pesca por su vejiga natatoria, muy cotizada en el mercado negro. Su captura arrastra también a la vaquita marina.</p><span class="tag cr">Peligro crítico</span></li>
+      <li class="row" data-s="cr"><div><h3>Tiburón martillo gigante</h3><em>Sphyrna mokarran</em></div><p><strong>Mares tropicales de todo el mundo.</strong> Sus aletas se pagan muy caro y es muy sensible a la captura incidental: muere con facilidad en cuanto lo atrapan.</p><span class="tag cr">Peligro crítico</span></li>
+      <li class="row" data-s="en"><div><h3>Pez napoleón</h3><em>Cheilinus undulatus</em></div><p><strong>Arrecifes del Indo-Pacífico.</strong> Puede superar los dos metros y vivir décadas. Se captura vivo para restaurantes de lujo y madura tarde, así que se recupera muy despacio.</p><span class="tag en">En peligro</span></li>
+      <li class="row" data-s="en"><div><h3>Tiburón ballena</h3><em>Rhincodon typus</em></div><p><strong>Aguas cálidas de todo el planeta.</strong> El pez más grande del mundo. Las colisiones con barcos, la pesca dirigida y la captura accidental reducen su población.</p><span class="tag en">En peligro</span></li>
+      <li class="row" data-s="en"><div><h3>Mantarraya gigante</h3><em>Mobula birostris</em></div><p><strong>Océanos tropicales y subtropicales.</strong> Tiene una sola cría cada pocos años. Se pesca por sus branquias y muere en redes de arrastre y de cerco.</p><span class="tag en">En peligro</span></li>
+    </ul>
+  </section>
+
+  <section class="act" id="actuar">
+    <h2>Lo que puedes hacer hoy</h2>
+    <ul>
+      <li><strong>Elige pescado con sello.</strong> Busca certificaciones como MSC o ASC y pregunta por el origen.</li>
+      <li><strong>Evita productos de especies amenazadas.</strong> Caviar, sopa de aleta y angulas alimentan el comercio ilegal.</li>
+      <li><strong>Apoya a quienes los protegen.</strong> Organizaciones locales de conservación marina necesitan voluntarios y donaciones.</li>
+      <li><strong>Cuenta lo que sabes.</strong> Compartir esta lista ayuda a que más gente conozca estas especies.</li>
+    </ul>
+  </section>
+
+  <footer>Estados según la Lista Roja de la UICN; pueden cambiar con nuevas evaluaciones. Consulta iucnredlist.org para datos actualizados.</footer>
+</div>
+
+<div class="depth" aria-hidden="true">Profundidad <b id="d">0 m</b></div>
+
+<script>
+(function(){
+  var btns=document.querySelectorAll('.filters button'),rows=document.querySelectorAll('.row');
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+    rows.forEach(function(r){r.hidden=b.dataset.f!=='all'&&r.dataset.s!==b.dataset.f});
+  })});
+  var d=document.getElementById('d');
+  function upd(){
+    var m=document.documentElement.scrollHeight-innerHeight,p=m>0?scrollY/m:0;
+    d.textContent=Math.round(p*4000)+' m';
+  }
+  addEventListener('scroll',upd,{passive:true});upd();
+})();
+</script>
+</body>
+</html>
